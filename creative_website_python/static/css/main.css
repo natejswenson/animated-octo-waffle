@@ -1,0 +1,455 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+    /* Colors */
+    --color-red: rgba(223, 0, 36, 0.4);
+    --color-yellow: rgba(243, 195, 0, 0.4);
+    --color-teal: rgba(0, 171, 159, 0.4);
+    --color-blue: rgba(46, 109, 180, 0.4);
+
+    --color-red-solid: rgb(223, 0, 36);
+    --color-yellow-solid: rgb(243, 195, 0);
+    --color-teal-solid: rgb(0, 171, 159);
+    --color-blue-solid: rgb(46, 109, 180);
+
+    /* Spacing */
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 60px;
+
+    /* Font Sizes */
+    --font-xs: 12px;
+    --font-sm: 14px;
+    --font-base: 16px;
+    --font-md: 18px;
+    --font-lg: 32px;
+    --font-xl: 48px;
+    --font-2xl: 64px;
+    --font-3xl: 96px;
+
+    /* Z-Index */
+    --z-content: 10;
+    --z-progress: 1000;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease-out;
+    --transition-slow: 0.5s ease;
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: auto; /* Disabled for infinite loop */
+}
+
+body {
+    margin: 0;
+    font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.minimalist-app {
+    background-color: #000;
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* Scroll Container */
+.scroll-container {
+    padding-top: 0;
+}
+
+/* Content Sections */
+.content-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2xl) var(--space-xl);
+    overflow: hidden;
+    contain: layout style paint;
+}
+
+/* Text Content */
+.text-content {
+    position: relative;
+    z-index: var(--z-content);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-wrapper {
+    position: relative;
+    display: inline-block;
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Shape Icons */
+.shape-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    width: 400px;
+    height: 400px;
+    transition: transform 0.4s ease-in-out;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.shape-icon.clickable:hover {
+    transform: scale(1.15);
+}
+
+.shape-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 1.5;
+}
+
+/* Circle Shape */
+.shape-circle {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 6px solid currentColor;
+}
+
+/* Square Shape */
+.shape-square {
+    width: 400px;
+    height: 400px;
+    border: 6px solid currentColor;
+}
+
+/* Triangle Shape - Outline only */
+.shape-triangle {
+    width: 0;
+    height: 0;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+    border-bottom: 346px solid currentColor;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Create outline effect for triangle */
+.shape-triangle::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 194px solid transparent;
+    border-right: 194px solid transparent;
+    border-bottom: 335px solid #000;
+    top: 6px;
+    left: -194px;
+}
+
+/* X Shape */
+.shape-x {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.shape-x::before,
+.shape-x::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 100%;
+    background-color: currentColor;
+    top: 0;
+    left: 50%;
+    margin-left: -4px;
+}
+
+.shape-x::before {
+    transform: rotate(45deg);
+}
+
+.shape-x::after {
+    transform: rotate(-45deg);
+}
+
+/* Section Title */
+.section-title {
+    font-size: var(--font-3xl);
+    font-weight: 700;
+    margin-bottom: var(--space-xl);
+    margin-top: 0;
+    letter-spacing: -1px;
+    animation: fadeInUp 0.8s ease-out;
+    line-height: 1.2;
+    text-align: center;
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.section-title.clickable-text {
+    cursor: pointer;
+    user-select: none;
+}
+
+.section-title.clickable-text:hover {
+    transform: scale(1.05);
+}
+
+/* Section Lines */
+.section-line {
+    font-size: var(--font-lg);
+    font-weight: 300;
+    margin: var(--space-md) 0;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Subtitle Wrapper */
+.subtitle-wrapper {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal), visibility 0s linear 0.5s;
+}
+
+.section-wrapper:hover .subtitle-wrapper {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--transition-normal) 0.5s, visibility 0s linear 0.5s;
+}
+
+/* Terminal Section */
+.terminal-section {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.terminal-window {
+    background: rgba(20, 20, 20, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    font-family: 'Courier New', monospace;
+}
+
+.terminal-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-button.red { background: #ff5f56; }
+.terminal-button.yellow { background: #ffbd2e; }
+.terminal-button.green { background: #27c93f; }
+
+.terminal-content {
+    color: #0f0;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.terminal-line {
+    margin: 8px 0;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.terminal-prompt {
+    color: var(--color-teal-solid);
+    margin-right: 8px;
+}
+
+.terminal-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background: #0f0;
+    margin-left: 4px;
+    animation: blink 1s infinite;
+}
+
+/* Scroll Progress Indicator */
+.scroll-progress {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--z-progress);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    will-change: transform, background;
+}
+
+.progress-dot.active {
+    background: #fff;
+    transform: scale(1.5);
+}
+
+.progress-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: var(--font-2xl);
+    }
+
+    .section-line {
+        font-size: var(--font-md);
+        margin-left: 0 !important;
+    }
+
+    .content-section {
+        padding: var(--space-xl) var(--space-md);
+    }
+
+    .shape-icon,
+    .shape-circle,
+    .shape-square,
+    .shape-x {
+        width: 300px;
+        height: 300px;
+    }
+
+    .shape-triangle {
+        border-left-width: 150px;
+        border-right-width: 150px;
+        border-bottom-width: 260px;
+    }
+
+    .shape-triangle::before {
+        border-left-width: 145px;
+        border-right-width: 145px;
+        border-bottom-width: 251px;
+        left: -145px;
+    }
+
+    /* Always show subtitle on mobile */
+    .subtitle-wrapper {
+        opacity: 1;
+        visibility: visible;
+        transition: none;
+        margin-top: 30px;
+    }
+
+    .subtitle-wrapper .section-line {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: var(--font-xl);
+    }
+
+    .section-line {
+        font-size: var(--font-base);
+    }
+
+    .subtitle-wrapper {
+        margin-top: 25px;
+    }
+
+    .subtitle-wrapper .section-line {
+        font-size: var(--font-lg);
+    }
+
+    .shape-icon,
+    .shape-circle,
+    .shape-square,
+    .shape-x {
+        width: 250px;
+        height: 250px;
+    }
+
+    .shape-triangle {
+        border-left-width: 125px;
+        border-right-width: 125px;
+        border-bottom-width: 217px;
+    }
+
+    .shape-triangle::before {
+        border-left-width: 121px;
+        border-right-width: 121px;
+        border-bottom-width: 209px;
+        left: -121px;
+    }
+}

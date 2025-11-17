@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+
+    <!-- Primary Meta Tags -->
+    <title>Nate Swenson - DevOps Engineer, Agile Coach & Author | AWS, Kubernetes, Python</title>
+    <meta name="title" content="Nate Swenson | Engineer | AI-Enthusiast | Coder | Learner">
+    <meta name="description" content="Nate Swenson is a Senior DevOps Engineer @ GoodLeap specializing in AWS, Kubernetes, Python, and JavaScript. AI Enthusiast, Continuous Learner, and author of the DevOps Career Handbook.">
+    <meta name="keywords" content="Nate Swenson, DevOps Engineer, Senior DevOps Engineer, AWS, Kubernetes, Python, JavaScript, Agile Coach, CI/CD, Docker, Automation, GoodLeap, DevOps Career Handbook, STEM Education, Software Engineering, Cloud Infrastructure, Jenkins, Ansible, Linux">
+    <meta name="author" content="Nate Swenson">
+    <meta name="robots" content="index, follow">
+
+    <!-- Preconnect for Google Fonts (Performance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Resource Hints for Better Performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <div class="minimalist-app">
+        <!-- Scroll Progress Indicator -->
+        <div class="scroll-progress">
+            <div class="progress-dots">
+                {% for section in original_sections %}
+                <div class="progress-dot" data-section="{{ loop.index0 }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <main class="scroll-container" role="main" aria-label="Main content">
+            {% for section in sections %}
+                {% if section.type == 'terminal' %}
+                    {# Terminal Section #}
+                    <section {% if section.use_id %}id="{{ section.id }}"{% endif %} class="content-section terminal-content-section">
+                        <div class="terminal-section">
+                            <div class="terminal-window">
+                                <div class="terminal-header">
+                                    <div class="terminal-button red"></div>
+                                    <div class="terminal-button yellow"></div>
+                                    <div class="terminal-button green"></div>
+                                </div>
+                                <div class="terminal-content">
+                                    {% for line in section.content %}
+                                    <div class="terminal-line" style="animation-delay: {{ loop.index0 * 0.2 }}s;">
+                                        <span class="terminal-prompt">$</span>
+                                        <span>{{ line }}</span>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="terminal-line" style="animation-delay: {{ section.content|length * 0.2 }}s;">
+                                        <span class="terminal-prompt">$</span>
+                                        <span class="terminal-cursor"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                {% else %}
+                    {# Regular Section #}
+                    <section {% if section.use_id %}id="{{ section.id }}"{% endif %} class="content-section" data-index="{{ section.index }}">
+                        <div class="text-content">
+                            <div class="section-wrapper scale-on-scroll">
+                                {# Shape Icon #}
+                                {% if section.shape == 'triangle' %}
+                                <div class="shape-icon">
+                                    <div class="shape-triangle" style="border-bottom-color: {{ section.color }};"></div>
+                                </div>
+                                {% elif section.shape == 'x-shape' %}
+                                <div class="shape-icon">
+                                    <div class="shape-x" style="color: {{ section.color }};"></div>
+                                </div>
+                                {% else %}
+                                <div class="shape-icon shape-{{ section.shape }}" style="border-color: {{ section.color }};"></div>
+                                {% endif %}
+
+                                {# Title #}
+                                <h1 class="section-title {% if section.link or section.action %}clickable-text{% endif %}"
+                                    data-text="{{ section.title }}"
+                                    {% if section.link %}onclick="window.open('{{ section.link }}', '_blank', 'noopener,noreferrer')"{% endif %}
+                                    {% if section.link or section.action %}role="button" tabindex="0"{% endif %}>
+                                    {{ section.title }}
+                                </h1>
+
+                                {# Subtitle Lines #}
+                                {% if section.lines %}
+                                <div class="subtitle-wrapper">
+                                    {% for line in section.lines %}
+                                    <p class="section-line subtitle-line"
+                                       style="animation-delay: {{ loop.index0 * 0.1 }}s; margin-left: {% if loop.index0 % 2 == 0 %}0{% else %}40px{% endif %}; color: {{ section.color }}; font-weight: 700;">
+                                        {{ line }}
+                                    </p>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            {% endfor %}
+        </main>
+    </div>
+
+    <!-- Minimal JavaScript - only for browser interactions -->
+    <script>
+        // Configuration from Python
+        const SCROLL_CONFIG = {{ scroll_config|safe }};
+        const ANIMATION = {{ animation_config|safe }};
+        const SECTION_COUNT = {{ original_sections|length }};
+    </script>
+    <script src="/static/js/scroll.js"></script>
+</body>
+</html>
